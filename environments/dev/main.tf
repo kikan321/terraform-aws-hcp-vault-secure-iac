@@ -39,3 +39,16 @@ output "web_server_public_ip" {
   value       = module.ec2_development.public_ip
   description = "IP pública para acceder al servidor web Nginx"
 }
+
+
+# =================================================================
+# 4. REFACTORING & STATE MIGRATION (DEMO ONLY)
+# =================================================================
+
+# Este bloque muestra cómo refactorizar una infraestructura de producción en vivo
+# sin destruir la máquina virtual. Traslada de forma segura la instancia monolítica heredada
+# al nuevo módulo EC2 desacoplado dentro del estado de Terraform.
+moved {
+  from = aws_instance.bad_ec2
+  to   = module.ec2_development.aws_instance.web
+}
